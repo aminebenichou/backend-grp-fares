@@ -22,6 +22,7 @@ from notes import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home), #adding url
-    path("create-note", views.create_note),
+    path("create-note/", views.create_note),
     path("delete-note/<int:id>", views.delete_note),
+    path("search/<str:query>", views.search_view),
 ]

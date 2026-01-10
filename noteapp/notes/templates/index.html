@@ -9,15 +9,31 @@
 
 <body>
 
+    <form action="create-note/" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" id="title">
+        <input type="text" name="content" id="content">
+        <input type="submit" value="Add Note">
+    </form>
+
+    <form action="/" method="post">
+        {% csrf_token %}
+        <input type="text" name="query" id="query">
+        <input type="submit" value="Search">
+    </form>
 
     {% for note in notes %}
 
-    <h2>
-        {{note.title}}
-    </h2>
-    <p>
-        {{note.content}}
-    </p>
+    <div style="padding: 10px; border: 1px solid gray; margin: 10px; background-color: beige;">
+        <h2>
+            {{note.title}}
+        </h2>
+        <p>
+            {{note.content}}
+        </p>
+    </div>
+
+
 
 
     {% endfor %}
