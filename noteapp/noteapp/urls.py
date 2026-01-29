@@ -23,6 +23,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home), #adding url
     path("create-note/", views.create_note),
+    path("edit-note/<int:id>", views.edit_note),
     path("delete-note/<int:id>", views.delete_note),
     path("search/<str:query>", views.search_view),
+
+
+    # auth urls
+    path('signup/', views.sign_up),
+    path('signin/', views.sign_in),
+    path('signout/', views.signout),
 ]

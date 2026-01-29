@@ -8,6 +8,14 @@
 </head>
 
 <body>
+    {% if islogged %}
+    <p>
+        hello {{username}}
+        <form action="/signout">
+            <input type="submit" value="Logout">
+        </form>
+    </p>
+    {% endif %}
 
     <form action="create-note/" method="post">
         {% csrf_token %}
@@ -23,15 +31,17 @@
     </form>
 
     {% for note in notes %}
+    <a href="/edit-note/{{note.id}}">
 
-    <div style="padding: 10px; border: 1px solid gray; margin: 10px; background-color: beige;">
-        <h2>
-            {{note.title}}
-        </h2>
-        <p>
-            {{note.content}}
-        </p>
-    </div>
+        <div style="padding: 10px; border: 1px solid gray; margin: 10px; background-color: beige;">
+            <h2>
+                {{note.title}}
+            </h2>
+            <p>
+                {{note.content}}
+            </p>
+        </div>
+    </a>
 
 
 
