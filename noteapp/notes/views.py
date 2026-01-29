@@ -12,22 +12,20 @@ def home(request):
 
     notes = Note.objects.all()
     result = []
-    if len(notes) == 0:
-        return HttpResponse("No Notes Available")
-    else:
-        for note in notes:
-            result.append(note)  
-        if request.user != None:
-            username=request.user
+    
+    for note in notes:
+        result.append(note)  
+    if request.user != None:
+        username=request.user
 
-        print(username)
-        context={
-            'notes': result,
-            'message':'hello world',
-            'username': username,
-            'islogged':True
-        }
-        return render(request, 'index.html', context)
+    print(username)
+    context={
+        'notes': result,
+        'message':'hello world',
+        'username': username,
+        'islogged':True
+    }
+    return render(request, 'index.html', context)
 
 def create_note(request):
     notes = Note.objects.all()
@@ -35,7 +33,7 @@ def create_note(request):
     content = request.POST.get('content')
     
 
-    notes.create(title=title, content=content)
+    notes.create(title=title, content=content, user=request.user)
 
     return redirect(home)
 
