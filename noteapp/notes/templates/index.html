@@ -8,27 +8,44 @@
 </head>
 
 <body>
-    {% if islogged %}
-    <p>
-        hello {{username}}
+    {% if islogged == True %}
+    <div>
+
+        <p>
+            hello {{username}}
         <form action="/signout">
             <input type="submit" value="Logout">
         </form>
-    </p>
+
+
+        </p>
+
+        <form action="create-note/" method="post">
+            {% csrf_token %}
+            <input type="text" name="title" id="title">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Note">
+        </form>
+
+        <form action="/" method="post">
+            {% csrf_token %}
+            <input type="text" name="query" id="query">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    {% else %}
+
+    <div>
+
+        <p>Please login to your account</p>
+        <a href="/signin">
+            <button>Login</button>
+        </a>
+    </div>
+
     {% endif %}
 
-    <form action="create-note/" method="post">
-        {% csrf_token %}
-        <input type="text" name="title" id="title">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Note">
-    </form>
 
-    <form action="/" method="post">
-        {% csrf_token %}
-        <input type="text" name="query" id="query">
-        <input type="submit" value="Search">
-    </form>
 
     {% for note in notes %}
     <a href="/edit-note/{{note.id}}">

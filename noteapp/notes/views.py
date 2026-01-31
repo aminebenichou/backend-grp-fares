@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from .models import Note
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
@@ -9,21 +9,25 @@ def home(request):
         query = request.POST.get('query')
         return redirect(f"search/{query}")
 
-
-    notes = Note.objects.all()
     result = []
-    
-    for note in notes:
-        result.append(note)  
-    if request.user != None:
+    islogged = False
+     
+    if request.user.is_authenticated:
         username=request.user
-
+        islogged=True
+        notes = Note.objects.filter(user=request.user)
+    else:
+        username=''
+        notes=[]
     print(username)
+
+    for note in notes:
+        result.append(note) 
     context={
         'notes': result,
         'message':'hello world',
         'username': username,
-        'islogged':True
+        'islogged':islogged
     }
     return render(request, 'index.html', context)
 
@@ -44,7 +48,7 @@ def delete_note(request, id:int):
     return redirect(home)
 
 def search_view(request, query:str):
-    notes= Note.objects.filter(title=query)
+    notes= Note.objects.filter(title=query, user=request.user)
     return render(request, 'index.html', {'notes':notes})
 
 
@@ -100,4 +104,4 @@ def sign_up(request):
     
 def signout(request):
     logout(request)
-    return redirect(sign_in)
+    return redirect(home)
