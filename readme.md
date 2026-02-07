@@ -24,3 +24,7 @@ Note:
         add the following line at the bottom of the settings file:
             AUTH_USER_MODEL = 'users.customuser'
             (you can replace customuser with your own model name)
+
+
+    python manage.py makemigrations
+    python manage.py migrate
