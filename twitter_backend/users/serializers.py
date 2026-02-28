@@ -29,3 +29,9 @@ class permissionSerializer(serializers.ModelSerializer):
     class Meta:
         model=Permission 
         fields='__all__'
+
+
+class UserDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model=customuser
+        fields=["username", 'phone', 'is_active']

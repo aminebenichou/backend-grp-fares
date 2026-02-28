@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from .models import customuser
-from .serilizers import ListUsersSerializer, groupSerializer, permissionSerializer
+from .serializers import ListUsersSerializer, groupSerializer, permissionSerializer
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from django.contrib.auth.models import Group, Permission
